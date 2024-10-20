@@ -11,6 +11,8 @@
 >
 >Para ello es necesario que descargen la aplicacion de git que es una consola, no el git Desktop, les hago un mini tutorial:
 >
+>Clonacion del repositorio en su dispositivo (definan bien en que ruta estaran trabajando): `git clone https://github.com/Merlin-02/Burrito_Net.git`
+>
 >Actualizar la rama local con los cambios mas recientes: `git pull origin main`
 >
 >Verifiquen la rama en a la que estan: `git branch`
