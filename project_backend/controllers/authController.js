@@ -28,7 +28,7 @@ exports.login = async (req, res) => { // Asegúrate de exportar la función
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    res.status(200).json({ message: 'Login successful',token });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ error: error.message });
