@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // routes/users.js
+=======
+//users.js
+>>>>>>> 640cf8a7ee3b9cefe6c3d7b3efff33157a5b7038
 const express = require('express');
 const router = express.Router();
 const { 

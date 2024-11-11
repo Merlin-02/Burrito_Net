@@ -21,6 +21,11 @@ app.use(express.json());
 app.use('/auth', authRoutes);         // Rutas de autenticación
 app.use('/api', uploadRoutes);        // Rutas de subida
 app.use('/api/users', usersRouter);   // Rutas de usuarios, con prefijo /api/users
+app.use('/auth', authRoutes);
+app.use('/api', uploadRoutes); // Usar las rutas para subir
+
+//Revisar posibles errores posteriores
+app.use(express.urlencoded({ extended: true }));//para aceptar datos en el formato URL codificado apenas agregue
 
 // Puerto y servidor
 const PORT = process.env.PORT || 5000;
