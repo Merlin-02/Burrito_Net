@@ -16,7 +16,9 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use('/auth', authRoutes);
-app.use('/api', uploadRoutes); // Usar las rutas de subida
+app.use('/api', uploadRoutes); // Usar las rutas para subir
+//Revisar posibles errores posteriores
+app.use(express.urlencoded({ extended: true }));//para aceptar datos en el formato URL codificado apenas agregue
 
 // Puerto y servidor
 const PORT = process.env.PORT || 5000;
