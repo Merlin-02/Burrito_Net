@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 // routes/users.js
-=======
 //users.js
->>>>>>> 640cf8a7ee3b9cefe6c3d7b3efff33157a5b7038
 const express = require('express');
 const router = express.Router();
 const { 
@@ -10,7 +7,9 @@ const {
   updateUserProfile, 
   changePassword, 
   getAllUsers,   // Nueva función para obtener todos los usuarios
-  followUser     // Nueva función para seguir a un usuario
+  followUser,     // Nueva función para seguir a un usuario
+  unfollowUser,
+  deleteUser 
 } = require('../controllers/userController');
 const authenticateToken = require('../middleware/authMiddleware');
 
@@ -23,6 +22,12 @@ router.post('/change-password', authenticateToken, changePassword);
 router.get('/', authenticateToken, getAllUsers);
 
 // Nueva ruta para seguir a un usuario
-router.post('/:id/follow', authenticateToken, followUser);
+router.post('/follow', authenticateToken, followUser);
+
+// Modificamos para eliminar un seguidor
+router.post('/unfollow', authenticateToken, unfollowUser); // RUTA PARA DEJAR DE SEGUIR A UN USUARIO
+router.delete('/:id', authenticateToken, deleteUser); // Ruta para eliminar un usuario
+
+
 
 module.exports = router;

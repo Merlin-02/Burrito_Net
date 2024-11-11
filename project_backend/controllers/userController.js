@@ -71,10 +71,11 @@ exports.getAllUsers = async (req, res) => {
 
 // Seguir a un usuario
 exports.followUser = async (req, res) => {
-  const userIdToFollow = req.params.id;
-  const currentUserId = req.user._id; // Suponiendo que estás usando middleware de autenticación
+  // Extraemos los ids desde el body de la solicitud
+  const { currentUserId, userIdToFollow } = req.body;
 
   try {
+    // Buscar los usuarios en la base de datos
     const userToFollow = await User.findById(userIdToFollow);
     const currentUser = await User.findById(currentUserId);
 
@@ -82,7 +83,7 @@ exports.followUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Comprobar si ya sigue al usuario
+    // Verificar si el usuario ya sigue al usuario objetivo
     if (currentUser.following.includes(userToFollow._id)) {
       return res.status(400).json({ message: 'You are already following this user' });
     }
@@ -91,11 +92,77 @@ exports.followUser = async (req, res) => {
     currentUser.following.push(userToFollow._id);
     userToFollow.followers.push(currentUser._id);
 
+    // Guardar los cambios en la base de datos
     await currentUser.save();
     await userToFollow.save();
 
     res.status(200).json({ message: 'Followed successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Error following user' });
+  }
+};
+
+// Dejar de seguir a un usuario
+exports.unfollowUser = async (req, res) => {
+  // Extraemos los ids desde el body de la solicitud
+  const { currentUserId, userIdToUnfollow } = req.body;
+
+  try {
+    // Buscar los usuarios en la base de datos
+    const userToUnfollow = await User.findById(userIdToUnfollow);
+    const currentUser = await User.findById(currentUserId);
+
+    if (!userToUnfollow || !currentUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Verificar si el usuario ya sigue al usuario objetivo
+    if (!currentUser.following.includes(userToUnfollow._id)) {
+      return res.status(400).json({ message: 'You are not following this user' });
+    }
+
+    // Eliminar al usuario de la lista de seguidores y seguidos
+    currentUser.following = currentUser.following.filter(id => id.toString() !== userToUnfollow._id.toString());
+    userToUnfollow.followers = userToUnfollow.followers.filter(id => id.toString() !== currentUser._id.toString());
+
+    // Guardar los cambios en la base de datos
+    await currentUser.save();
+    await userToUnfollow.save();
+
+    res.status(200).json({ message: 'Unfollowed successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error unfollowing user' });
+  }
+};
+
+// Eliminar un usuario
+exports.deleteUser = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    // Buscar al usuario a eliminar
+    const userToDelete = await User.findById(userId);
+
+    if (!userToDelete) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Eliminar el usuario de las listas de seguidores y seguidos de otros usuarios
+    await User.updateMany(
+      { following: userId },
+      { $pull: { following: userId } } // Eliminar el usuario de las listas de seguidos
+    );
+
+    await User.updateMany(
+      { followers: userId },
+      { $pull: { followers: userId } } // Eliminar el usuario de las listas de seguidores
+    );
+
+    // Eliminar el usuario de la base de datos
+    await userToDelete.deleteOne();
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
