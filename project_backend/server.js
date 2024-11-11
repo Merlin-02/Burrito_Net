@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
+const usersRouter = require('./routes/users'); 
 const uploadRoutes = require('./routes/upload'); // Importar las rutas de subida
 
 const app = express();
@@ -15,8 +16,11 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/auth', authRoutes);
-app.use('/api', uploadRoutes); // Usar las rutas de subida
+
+// Rutas
+app.use('/auth', authRoutes);         // Rutas de autenticación
+app.use('/api', uploadRoutes);        // Rutas de subida
+app.use('/api/users', usersRouter);   // Rutas de usuarios, con prefijo /api/users
 
 // Puerto y servidor
 const PORT = process.env.PORT || 5000;

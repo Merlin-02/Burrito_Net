@@ -1,3 +1,4 @@
+// controllers/userControllers.js
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
@@ -16,12 +17,12 @@ exports.getUserProfile = async (req, res) => {
 
 // Actualizar perfil de usuario
 exports.updateUserProfile = async (req, res) => {
-  const { username, email, bio, avatar } = req.body; // Asegúrate de que estos campos existan en tu modelo
+  const { username, email } = req.body;
 
   try {
     const user = await User.findByIdAndUpdate(
       req.user.id, // Usa el ID del usuario extraído del token
-      { username, email, bio, avatar },
+      { username, email },
       { new: true, runValidators: true } // Devuelve el nuevo documento y aplica validaciones
     );
 
@@ -86,7 +87,7 @@ exports.followUser = async (req, res) => {
       return res.status(400).json({ message: 'You are already following this user' });
     }
 
-    // Agregar el usuario a la lista de seguidores
+    // Agregar el usuario a la lista de seguidores y seguidos
     currentUser.following.push(userToFollow._id);
     userToFollow.followers.push(currentUser._id);
 
