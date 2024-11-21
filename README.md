@@ -1,3 +1,4 @@
+
 > [!NOTE]
 > En este repositorio encontramos 2 carpetas, las cuales `net_burrito` pertenece a la parte del backend y `net_burrito_fronted` pertenece cómo su nombre lo indica a la parte del fronted que interactua con el usuario.
 
