@@ -1,12 +1,14 @@
 // src/components/Auth/SignUp.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import '../../styles.css'; // Asegúrate de importar el archivo CSS
 
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Hook para navegación
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -16,8 +18,11 @@ const Signup = () => {
         email,
         password,
       });
-      console.log(`Bienvenido ${response.username}`)
+      console.log(`Bienvenido ${response.data.username}`); // Cambié `response.username` por `response.data.username`
       alert('User created successfully!');
+
+      // Redirige al usuario a Dashboard
+      navigate('/dashboard');
     } catch (error) {
       // Manejo mejorado de errores
       if (error.response && error.response.data) {
