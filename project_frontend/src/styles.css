@@ -1,183 +1,55 @@
+/* Fondo del contenedor principal */
 body {
   font-family: Arial, sans-serif;
-  background-color: #FCFDF9; /* Fondo del color solicitado */
-  margin: 0 100px;
+  background-color: #FCFDF9; /* Fondo general */
+  margin: 0;
   padding: 0;
 }
 
-.container {
-  width: 80%;
-  margin: auto;
-  overflow: hidden;
+/* Fondo y estilo de la sección del Login */
+section {
+  background-color: #0798A3;
+  padding-top: 2rem; /* Espaciado superior */
+  padding-bottom: 2rem; /* Espaciado inferior */
 }
 
-h1 {
-  text-align: center;
-  color: #333;
-  font-size: 3rem; /* Hacer que el título sea más grande */
-  display: inline-block;
-  margin-right: 20px; /* Separar un poco el título del logo */
-}
-
-.logo {
-  height: 50px; /* Ajustar el tamaño del logo */
-  vertical-align: middle;
-}
-
-form {
-  background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 20px auto;
-  max-width: 400px;
-}
-
-input {
+/* Estilo para los inputs y el botón */
+input, button {
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 25px; /* Bordes redondeados para inputs y botón */
 }
 
-button {
-  background: #5cb85c;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 4px;
+/* Ajustes adicionales para los inputs */
+input {
+  margin-bottom: 1.5rem; /* Separación entre inputs */
 }
 
-button:hover {
-  background: #4cae4c;
-}
-
-/* Estilos para los botones de navegación en el Dashboard */
-.navigation-buttons {
-  display: flex;
-  justify-content: flex-start; /* Alineamos los botones hacia la izquierda */
-  gap: 10px; /* Reducir el espacio entre los botones */
-  margin-bottom: 20px;
-}
-
-.auth-button {
-  background-color: #0798A3; /* Color de fondo para los botones de Login, Logout y Signup */
-  color: white;
-  font-size: 16px;
-  padding: 12px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.auth-button:hover {
-  background-color: #057A86; /* Color más oscuro cuando el mouse pasa por encima */
-}
-
-.navigation-buttons .upload-project-btn {
-  background: linear-gradient(45deg, #6B133B, #FCFDF9); /* Color de fondo difuminado */
-  color: white;
-  font-size: 16px;
-  padding: 15px 30px;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-.navigation-buttons .upload-project-btn:hover {
-  background: linear-gradient(45deg, #6B133B, #FCFDF9);
-  opacity: 0.9; /* Efecto de opacidad al pasar el mouse */
-}
-
-/* Estilos para la lista de proyectos */
-h2 {
-  color: #333;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
+/* Estilos para el formulario */
+form {
   background: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-li h3 {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
-}
-
-li p {
-  margin: 5px 0 0;
-  color: #555;
-}
-
-/* Header styling */
-.header {
-  display: flex;
-  align-items: center; /* Asegura que el logo y el título estén alineados verticalmente */
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.create-project {
-  width: 80%;
-  margin: auto;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-#tags {
-  width: 80%;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
+/* Botón principal */
 button {
-  background-color: #0798A3;
+  background: #0798A3;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 10px;
   cursor: pointer;
   border-radius: 4px;
 }
 
 button:hover {
-  background-color: #067F8E;
+  background: #057A86; /* Color más oscuro cuando el mouse pasa por encima */
 }
 
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
+
+/* Estilos del enlace de Sign up */
+a {
+  color: #fff; /* Enlace blanco */
 }
 
-.tag {
-  background-color: #6B133B;
-  color: white;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-}
-
-.tag button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-left: 5px;
-}
-
-.tag button:hover {
-  color: red;
-}
