@@ -1,3 +1,4 @@
+//usercontroller
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
@@ -70,61 +71,6 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-// Seguir a un usuario
-exports.followUser = async (req, res) => {
-  const { currentUserId, userIdToFollow } = req.body;
-
-  try {
-    const userToFollow = await User.findById(userIdToFollow);
-    const currentUser = await User.findById(currentUserId);
-
-    if (!userToFollow || !currentUser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    if (currentUser.following.includes(userToFollow._id)) {
-      return res.status(400).json({ message: 'You are already following this user' });
-    }
-
-    currentUser.following.push(userToFollow._id);
-    userToFollow.followers.push(currentUser._id);
-
-    await currentUser.save();
-    await userToFollow.save();
-
-    res.status(200).json({ message: 'Followed successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Error following user' });
-  }
-};
-
-// Dejar de seguir a un usuario
-exports.unfollowUser = async (req, res) => {
-  const { currentUserId, userIdToUnfollow } = req.body;
-
-  try {
-    const userToUnfollow = await User.findById(userIdToUnfollow);
-    const currentUser = await User.findById(currentUserId);
-
-    if (!userToUnfollow || !currentUser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    if (!currentUser.following.includes(userToUnfollow._id)) {
-      return res.status(400).json({ message: 'You are not following this user' });
-    }
-
-    currentUser.following = currentUser.following.filter(id => id.toString() !== userToUnfollow._id.toString());
-    userToUnfollow.followers = userToUnfollow.followers.filter(id => id.toString() !== currentUser._id.toString());
-
-    await currentUser.save();
-    await userToUnfollow.save();
-
-    res.status(200).json({ message: 'Unfollowed successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Error unfollowing user' });
-  }
-};
 
 // Eliminar un usuario
 exports.deleteUser = async (req, res) => {
@@ -197,5 +143,27 @@ exports.uploadProfileImage = async (req, res) => {
     res.status(500).json({ error: 'Error al subir la imagen de perfil.' });
   }
 };
+
+// Buscar usuarios
+exports.searchUsers = async (req, res) => {
+  const { query } = req.query; // Recibe el término de búsqueda desde el cliente
+  if (!query) {
+    return res.status(400).json({ error: 'Debe proporcionar un término de búsqueda.' });
+  }
+
+  try {
+    const users = await User.find({
+      $or: [
+        { username: { $regex: query, $options: 'i' } },
+        { email: { $regex: query, $options: 'i' } },
+      ],
+    }).select('-password'); // Excluye la contraseña
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 exports.upload = upload.single('profileImage');

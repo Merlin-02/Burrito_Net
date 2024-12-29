@@ -2,6 +2,7 @@
 const Project = require('../models/Project');
 
 // Crear un proyecto
+// Crear un proyecto
 exports.createProject = async (req, res) => {
   console.log("Datos recibidos en el backend (req.body):", req.body);
   console.log("Archivo recibido (req.file):", req.file);
@@ -14,13 +15,17 @@ exports.createProject = async (req, res) => {
       return res.status(400).json({ error: "El nombre y la descripción son obligatorios." });
     }
 
+    // Asegúrate de que req.file esté definido y genera el fileUrl
+    const fileName = req.file?.filename;
+    const fileUrl = fileName ? `/uploads/${fileName}` : null;
+
     // Crear el proyecto
     const project = new Project({
       name,
       description,
       tags: tags ? JSON.parse(tags) : [], // Asegurar que los tags sean un array
       createdBy: req.user.id, // ID del usuario autenticado
-      filePath: req.file?.path || null, // Ruta del archivo (opcional)
+      fileUrl, // URL del archivo (si existe)
       fileType: req.file?.mimetype || null, // Tipo de archivo (opcional)
     });
 
@@ -31,6 +36,7 @@ exports.createProject = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 
 

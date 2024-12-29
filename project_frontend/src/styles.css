@@ -1,98 +1,47 @@
-/* Fondo del contenedor principal */
+:root {
+  --background-light: #FCFDF9; /* Fondo claro */
+  --blue-dark: #066585; /* Azul oscuro */
+  --blue-bright: #05B8B1; /* Azul brillante */
+  --yellow: #F7C92C; /* Amarillo */
+  --maroon: #6B133B; /* Guinda oscuro */
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #FCFDF9; /* Fondo general */
+  background-color: var(--background-light);
   margin: 0;
   padding: 0;
+  color: var(--blue-dark); /* Color principal de texto */
 }
 
-/* Fondo y estilo de la sección del Login */
-section {
-  background-color: #0798A3;
-  padding-top: 2rem; /* Espaciado superior */
-  padding-bottom: 2rem; /* Espaciado inferior */
-  color: #FCFDF9; /* Texto blanco para contraste */
-}
-
-/* Estilo para los inputs y el botón */
-input, button {
-  width: 100%;
-  padding: 10px;
-  border-radius: 25px; /* Bordes redondeados para inputs y botón */
-  border: 1px solid #066585; /* Borde azul oscuro */
-}
-
-/* Ajustes adicionales para los inputs */
-input {
-  margin-bottom: 1.5rem; /* Separación entre inputs */
-}
-
-/* Estilos para el formulario */
-form {
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #0798A3; /* Borde azul claro */
-}
-
-/* Botón principal */
-button {
-  background: #0798A3;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: #066585; /* Color más oscuro cuando el mouse pasa por encima */
-}
-
-/* Estilos del enlace de Sign up */
-a {
-  color: #F7C92C; /* Amarillo brillante */
-  text-decoration: none;
-}
-
-a:hover {
-  color: #6B133B; /* Guinda oscuro */
-}
-
-.success-message {
-  color: green;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.error-message {
-  color: red;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.dashboard {
-  display: flex;
+/* ======== Layout General ======== */
+.main-layout {
+  display: flex; /* Usar Flexbox para organizar el layout */
+  height: 100vh; /* Altura total de la ventana */
+  overflow: hidden; /* Evitar desbordamientos */
 }
 
 .sidebar {
-  width: 250px;
-  background-color: #066585; /* Fondo azul oscuro */
+  flex: 0 0 250px; /* Ancho fijo de 250px */
+  background-color: var(--blue-dark); /* Fondo del sidebar */
+  color: var(--background-light); /* Texto blanco */
+  height: 100%; /* Altura completa */
   padding: 20px;
-  border-right: 1px solid #0798A3;
-  height: 100vh;
-  color: #FCFDF9; /* Texto blanco */
+  box-sizing: border-box; /* Incluir padding y bordes en el tamaño */
+  border-right: 1px solid var(--blue-bright); /* Borde divisor */
+  position: fixed; /* Fijo en el lado izquierdo */
+  top: 0;
+  left: 0;
 }
 
 .sidebar h2 {
   font-size: 24px;
   margin-bottom: 20px;
+  color: var(--background-light);
 }
 
 .sidebar ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
 }
 
@@ -103,127 +52,417 @@ a:hover {
 .sidebar ul li a,
 .sidebar ul li button {
   text-decoration: none;
-  color: #FCFDF9; /* Texto blanco */
+  color: var(--background-light); /* Texto blanco */
   font-size: 18px;
   cursor: pointer;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
 }
 
 .sidebar ul li button {
   background: none;
   border: none;
-  color: #FCFDF9;
-  font-size: 18px;
-  cursor: pointer;
 }
 
-.sidebar ul li button:hover,
-.sidebar ul li a:hover {
-  color: #F7C92C; /* Amarillo */
+.sidebar ul li a:hover,
+.sidebar ul li button:hover {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
 }
 
 .main-content {
-  flex: 1;
+  margin-left: 250px; /* Deja espacio para el sidebar */
+  flex-grow: 1; /* Ocupa el espacio restante */
   padding: 20px;
-  background-color: #FCFDF9; /* Fondo claro */
-  color: #333; /* Texto oscuro */
+  overflow-y: auto; /* Scroll si es necesario */
+  background-color: var(--background-light); /* Fondo claro */
 }
 
-.logout-btn {
-  color: #F7C92C;
-  font-weight: bold;
-}
-
-.create-project-layout {
-  display: flex;
-  height: 100vh;
-}
-
-.project-detail {
-  display: flex; /* Usar flexbox para alinear el sidebar y el contenido principal */
-  height: 100vh; /* Hacer que ocupe toda la altura de la ventana */
-  overflow: hidden; /* Evitar desbordamientos */
-}
-
-.project-detail .sidebar {
-  border-right: 1px solid #066585;
-}
-
-.project-content {
-  flex-grow: 1; /* Hacer que el contenido principal ocupe el espacio restante */
-  padding: 20px;
-  overflow-y: auto; /* Permitir scroll si el contenido es demasiado largo */
-  word-wrap: break-word; /* Asegurar que el texto largo se ajuste */
-  box-sizing: border-box; /* Incluir padding y bordes en el ancho total */
-}
-
-.dashboard .project-item {
-  border: 1px solid #0798A3;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  background: #FFF;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard .project-item h3 {
-  color: #6B133B;
-}
-
-.dashboard .project-image {
-  max-width: 100%;
-  height: auto;
-  margin-top: 10px;
-  border-radius: 8px;
-}
-
-.dashboard .project-file a {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  color: #066585;
-}
-
-.dashboard .project-file a:hover {
-  color: #0798A3;
-}
-
-.code-viewer {
-  background-color: #F7C92C;
-  font-family: 'Courier New', Courier, monospace;
-  padding: 10px;
-  overflow: auto;
-  margin-top: 10px;
-  border-radius: 5px;
-  color: #6B133B;
-}
-
-.view-details-btn {
-  font-size: 12px;
-  padding: 5px 10px;
-  margin-top: 4px;
-  display: inline-block;
-  cursor: pointer;
-  background-color: #F7C92C;
-  color: #6B133B;
+/* ======== Botones ======== */
+button {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.view-details-btn:hover {
-  background-color: #6B133B;
-  color: #FCFDF9;
+button:hover {
+  background-color: var(--blue-dark);
+}
+
+/* ======== Elementos de Proyectos ======== */
+.project-items {
+  display: flex;
+  flex-direction: column; /* Una columna para asegurar un proyecto por fila */
+  gap: 20px;
+}
+
+.project-item {
+  background-color: var(--background-light);
+  border: 1px solid var(--blue-bright);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Asegurar una estructura en columna */
+  gap: 10px;
+}
+
+.project-item:hover {
+  transform: translateY(-5px);
+}
+
+.project-title {
+  font-size: 20px;
+  color: var(--yellow); /* Amarillo */
+  margin: 0;
+}
+
+.project-description {
+  font-size: 16px;
+  color: var(--blue-dark); /* Azul oscuro */
+  margin: 0;
 }
 
 .project-btn {
-  background-color: #05B8B1;
-  color: #FFF;
+  align-self: flex-start;
+  background-color: var(--blue-bright); /* Azul brillante */
+  color: var(--background-light); /* Texto blanco */
   border: none;
-  padding: 8px 12px;
+  padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .project-btn:hover {
-  background-color: #066585;
+  background-color: var(--blue-dark); /* Azul oscuro */
 }
+
+/* ======== Formularios ======== */
+form {
+  background: var(--background-light);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--blue-bright);
+}
+
+form .form-group {
+  margin-bottom: 20px;
+}
+
+form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+form .form-group input,
+form .form-group textarea,
+form .form-group button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--blue-bright);
+  border-radius: 5px;
+}
+
+form .form-group textarea {
+  resize: vertical;
+}
+
+form .form-group button {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+}
+
+form .form-group button:hover {
+  background-color: var(--blue-dark);
+}
+
+/* ======== Tags ======== */
+.tags-container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.tag-chip {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  white-space: nowrap;
+  border: 1px solid var(--blue-dark);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tag-chip:hover {
+  background-color: var(--blue-dark);
+  transform: scale(1.05);
+}
+
+/* ======== Títulos ======== */
+.main-title {
+  font-size: 32px;
+  color: var(--maroon); /* Guinda */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tags-title {
+  font-size: 20px;
+  color: var(--blue-dark); /* Azul oscuro */
+  margin-bottom: 10px;
+}
+
+/* ======== Responsivo ======== */
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+/* Estilos del perfil de usuario */
+.user-profile {
+  background-color: var(--background-light);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+  font-size: 24px;
+  color: var(--yellow); /* Amarillo */
+  margin-bottom: 10px;
+}
+
+.user-email {
+  font-size: 18px;
+  color: var(--blue-dark);
+  margin-bottom: 20px;
+}
+
+.follow-info p {
+  font-size: 16px;
+  color: var(--blue-dark);
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--blue-bright);
+  border-radius: 5px;
+}
+
+.search-btn {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: var(--blue-dark);
+}
+
+.search-item {
+  background-color: var(--background-light);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--blue-bright);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-text {
+  flex-grow: 1;
+  margin-right: 10px;
+  font-size: 16px;
+  color: var(--blue-dark);
+}
+
+.follow-btn,
+.unfollow-btn {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.follow-btn:hover,
+.unfollow-btn:hover {
+  background-color: var(--blue-dark);
+}
+
+/* Loading text */
+.loading-text {
+  color: var(--maroon);
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Título principal del Dashboard */
+.main-title {
+  font-size: 32px;
+  color: var(--maroon); /* Guinda */
+  margin-bottom: 20px;
+}
+
+/* Lista de proyectos recientes */
+.project-list {
+  display: grid;
+  grid-template-columns: 1fr; /* Solo un proyecto por fila */
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-item {
+  background-color: var(--background-light);
+  border: 1px solid var(--blue-bright);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.project-item:hover {
+  transform: translateY(-5px); /* Efecto de levantar al pasar el mouse */
+}
+
+.project-title {
+  font-size: 24px;
+  color: var(--yellow); /* Amarillo */
+  margin-bottom: 10px;
+}
+
+.project-description {
+  font-size: 16px;
+  color: var(--blue-dark);
+  margin-bottom: 10px;
+}
+
+.project-creator {
+  font-size: 14px;
+  color: var(--maroon); /* Guinda */
+  margin-bottom: 15px;
+}
+
+/* Botón Ver Detalles */
+.view-details {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-details:hover {
+  background-color: var(--blue-dark);
+}
+
+/* Imagen del proyecto */
+.project-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Botón Descargar */
+.project-btn {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.project-btn:hover {
+  background-color: var(--blue-dark);
+}
+
+/* Texto de carga */
+.loading-text {
+  font-size: 18px;
+  color: var(--maroon); /* Guinda */
+  text-align: center;
+}
+/* Imagen del proyecto  DASBOARD*/
+.project-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón Descargar */
+/* Estilo para la sección de archivos */
+.file-section {
+  margin-top: 20px;
+}
+
+/* Botón para descargar archivos */
+.project-btn {
+  background-color: #05B8B1; /* Azul brillante */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.project-btn:hover {
+  background-color: #066585; /* Azul oscuro */
+}
+
+.button-container {
+  margin-top: 10px;
+}
+

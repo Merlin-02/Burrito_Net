@@ -41,14 +41,14 @@ const ProjectList = () => {
 
       {/* Contenido Principal */}
       <div className="project-list-content">
-        <h1>Lista de Proyectos</h1>
+        <h1 className="main-title">Lista de Proyectos</h1>
         <div className="project-items">
           {projects.map((project) => (
             <div key={project._id} className="project-item">
-              <h3>{project.name}</h3>
-              <p>{project.description.slice(0, 50)}...</p> {/* Muestra solo los primeros 50 caracteres */}
+              <h3 className="project-title">{project.name}</h3>
+              <p className="project-description">{project.description.slice(0, 100)}...</p> {/* Muestra solo los primeros 100 caracteres */}
               <button
-                className="view-details-btn"
+                className="project-btn view-details-btn"
                 onClick={() => navigate(`/projectdetails/${project._id}`)}
               >
                 Ver Detalles

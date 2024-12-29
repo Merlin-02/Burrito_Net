@@ -1,3 +1,4 @@
+// ProjectDetail.js
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -7,6 +8,7 @@ const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const navigate = useNavigate();
 
+  // Obtener los detalles del proyecto
   useEffect(() => {
     const fetchProject = async () => {
       try {
@@ -43,42 +45,50 @@ const ProjectDetail = () => {
         <h2>Opciones</h2>
         <ul>
           <li>
-            <button onClick={handleBackToList}>Volver a la Lista</button>
+            <button onClick={handleBackToList} className="sidebar-button">
+              Volver a la Lista
+            </button>
           </li>
           <li>
-            <button onClick={handleViewCommits}>Commits</button>
+            <button onClick={handleViewCommits} className="sidebar-button">
+              Ver Commits
+            </button>
           </li>
         </ul>
       </div>
 
       {/* Contenido Principal */}
       <div className="main-content">
-        <h1>Detalles del Proyecto</h1>
+        <h1 className="main-title">Detalles del Proyecto</h1>
         {project ? (
-          <div>
-            <h2>{project.name}</h2>
-            <p>{project.description}</p>
-            <h3>Tags</h3>
-            <ul>
+          <div className="project-detail">
+            <h2 className="project-title">{project.name}</h2>
+            <p className="project-description">{project.description}</p>
+            <h3 className="tags-title">Tags</h3>
+            <div className="tags-container">
               {project.tags.map((tag, index) => (
-                <li key={index}>{tag}</li>
+                <span key={index} className="tag-chip">{tag}</span>
               ))}
-            </ul>
-            {project.fileType?.startsWith("image/") && (
-              <img
-                src={project.fileUrl}
-                alt={project.name}
-                className="project-image"
-              />
-            )}
+            </div>
             {project.fileUrl && (
-              <a href={project.fileUrl} download={project.fileName}>
-                <button className="submit-btn">Descargar Archivo</button>
-              </a>
+              <div className="file-section">
+                {project.fileType?.startsWith("image/") ? (
+                  <img
+                    src={project.fileUrl}
+                    alt={project.name}
+                    className="project-image"
+                  />
+                ) : (
+                  <p>Archivo disponible: {project.fileName}</p>
+                )}
+                <a href={project.fileUrl} download={project.fileName}>
+                  <button className="project-btn">Descargar Archivo</button>
+                </a>
+              </div>
             )}
           </div>
         ) : (
-          <p>Cargando detalles...</p>
+          <p className="loading-text">Cargando detalles...</p>
         )}
       </div>
     </div>

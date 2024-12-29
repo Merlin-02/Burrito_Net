@@ -62,7 +62,8 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="create-project-layout">
+    <div className="main-layout">
+      {/* Sidebar */}
       <div className="sidebar">
         <h2>NetBurrito</h2>
         <ul>
@@ -70,7 +71,9 @@ const CreateProject = () => {
           <li><Link to="/projectlist">Lista de Proyectos</Link></li>
         </ul>
       </div>
-      <div className="create-project-content">
+
+      {/* Contenido Principal */}
+      <div className="main-content">
         <form onSubmit={handleSubmit}>
           <h2>Crear Proyecto</h2>
           <div className="form-group">
@@ -108,7 +111,10 @@ const CreateProject = () => {
             </div>
             <div className="tags-container">
               {selectedTags.map((tag, index) => (
-                <span key={index}>{tag}<button onClick={() => handleTagDelete(tag)}>X</button></span>
+                <span key={index}>
+                  {tag}
+                  <button type="button" onClick={() => handleTagDelete(tag)}>X</button>
+                </span>
               ))}
             </div>
           </div>

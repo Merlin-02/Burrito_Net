@@ -1,3 +1,4 @@
+// Dashboard.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -43,7 +44,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard">
+    <div className="dashboard main-layout">
       {/* Sidebar */}
       <div className="sidebar">
         <h2>NetBurrito</h2>
@@ -65,20 +66,24 @@ const Dashboard = () => {
 
       {/* Contenido Principal */}
       <div className="main-content">
-        <h2>Proyectos Recientes</h2>
+        <h2 className="main-title">Proyectos Recientes</h2>
         {loading ? (
-          <p>Cargando proyectos...</p>
+          <p className="loading-text">Cargando proyectos...</p>
         ) : (
           <ul className="project-list">
             {projects.map((project) => (
               <li key={project._id} className="project-item">
-                <h3>{project.name}</h3>
-                <p>{project.description.substring(0, 100)}...</p>
-                <p>Creado por: {project.createdByName || 'Usuario Desconocido'}</p>
+                <h3 className="project-title">{project.name}</h3>
+                <p className="project-description">{project.description.substring(0, 100)}...</p>
+                <p className="project-creator">Creado por: {project.createdByName || 'Usuario Desconocido'}</p>
                 {project.fileUrl && (
                   <div className="project-file">
                     {project.fileType?.startsWith('image/') ? (
-                      <img src={project.fileUrl} alt={project.name} className="project-image" />
+                      <img
+                        src={project.fileUrl}
+                        alt={project.name}
+                        className="project-image"
+                      />
                     ) : (
                       <div className="button-container">
                         <a href={project.fileUrl} download={project.fileName}>
