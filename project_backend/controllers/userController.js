@@ -1,6 +1,7 @@
-// controllers/userControllers.js
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const path = require('path');
 
 // Obtener perfil de usuario
 exports.getUserProfile = async (req, res) => {
@@ -71,11 +72,9 @@ exports.getAllUsers = async (req, res) => {
 
 // Seguir a un usuario
 exports.followUser = async (req, res) => {
-  // Extraemos los ids desde el body de la solicitud
   const { currentUserId, userIdToFollow } = req.body;
 
   try {
-    // Buscar los usuarios en la base de datos
     const userToFollow = await User.findById(userIdToFollow);
     const currentUser = await User.findById(currentUserId);
 
@@ -83,16 +82,13 @@ exports.followUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Verificar si el usuario ya sigue al usuario objetivo
     if (currentUser.following.includes(userToFollow._id)) {
       return res.status(400).json({ message: 'You are already following this user' });
     }
 
-    // Agregar el usuario a la lista de seguidores y seguidos
     currentUser.following.push(userToFollow._id);
     userToFollow.followers.push(currentUser._id);
 
-    // Guardar los cambios en la base de datos
     await currentUser.save();
     await userToFollow.save();
 
@@ -104,11 +100,9 @@ exports.followUser = async (req, res) => {
 
 // Dejar de seguir a un usuario
 exports.unfollowUser = async (req, res) => {
-  // Extraemos los ids desde el body de la solicitud
   const { currentUserId, userIdToUnfollow } = req.body;
 
   try {
-    // Buscar los usuarios en la base de datos
     const userToUnfollow = await User.findById(userIdToUnfollow);
     const currentUser = await User.findById(currentUserId);
 
@@ -116,16 +110,13 @@ exports.unfollowUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Verificar si el usuario ya sigue al usuario objetivo
     if (!currentUser.following.includes(userToUnfollow._id)) {
       return res.status(400).json({ message: 'You are not following this user' });
     }
 
-    // Eliminar al usuario de la lista de seguidores y seguidos
     currentUser.following = currentUser.following.filter(id => id.toString() !== userToUnfollow._id.toString());
     userToUnfollow.followers = userToUnfollow.followers.filter(id => id.toString() !== currentUser._id.toString());
 
-    // Guardar los cambios en la base de datos
     await currentUser.save();
     await userToUnfollow.save();
 
@@ -140,25 +131,22 @@ exports.deleteUser = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    // Buscar al usuario a eliminar
     const userToDelete = await User.findById(userId);
 
     if (!userToDelete) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Eliminar el usuario de las listas de seguidores y seguidos de otros usuarios
     await User.updateMany(
       { following: userId },
-      { $pull: { following: userId } } // Eliminar el usuario de las listas de seguidos
+      { $pull: { following: userId } }
     );
 
     await User.updateMany(
       { followers: userId },
-      { $pull: { followers: userId } } // Eliminar el usuario de las listas de seguidores
+      { $pull: { followers: userId } }
     );
 
-    // Eliminar el usuario de la base de datos
     await userToDelete.deleteOne();
 
     res.status(200).json({ message: 'User deleted successfully' });
@@ -166,3 +154,48 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Subida de imagen de perfil
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/profile_images/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${file.originalname}`;
+    cb(null, uniqueName);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+    const fileExtension = path.extname(file.originalname).toLowerCase();
+
+    if (allowedExtensions.includes(fileExtension)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Tipo de archivo no permitido. Solo se permiten imágenes.'));
+    }
+  },
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
+
+exports.uploadProfileImage = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
+    }
+
+    user.profileImage = `/uploads/profile_images/${req.file.filename}`;
+    await user.save();
+
+    res.status(200).json({ message: 'Imagen de perfil actualizada.', profileImageUrl: user.profileImage });
+  } catch (error) {
+    console.error('Error al subir la imagen de perfil:', error.message);
+    res.status(500).json({ error: 'Error al subir la imagen de perfil.' });
+  }
+};
+
+exports.upload = upload.single('profileImage');
