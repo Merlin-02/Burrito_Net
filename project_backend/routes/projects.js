@@ -1,4 +1,3 @@
-//projects.js
 const express = require('express');
 const {
   createProject,
@@ -7,6 +6,7 @@ const {
   getProjectById,
   updateProject,
   deleteProject,
+  getAllProjects,  // Asegúrate de importar la nueva función
 } = require('../controllers/projectController');
 const { createCommit, getCommits } = require('../controllers/commitController');
 const { getFileContent } = require('../controllers/fileController'); // Importación de la función
@@ -17,16 +17,27 @@ const router = express.Router();
 
 // Rutas para proyectos
 
-
+// Crear un proyecto
 router.post('/', authenticateToken, upload.single('file'), createProject);
 
+// Obtener los proyectos del usuario autenticado
 router.get('/', authenticateToken, getProjects);
+
+// Obtener todos los proyectos de todos los usuarios (nueva ruta)
+router.get('/all', getAllProjects); // Ruta añadida
+
+// Obtener un proyecto por su ID
 router.get('/:id/project', authenticateToken, getProjectById);
 
+// Actualizar un proyecto por su ID
 router.put('/:id', authenticateToken, updateProject);
 
+// Eliminar un proyecto por su ID
 router.delete('/:id', authenticateToken, deleteProject);
+
+// Obtener los proyectos del usuario autenticado (propietario)
 router.get('/own', authenticateToken, getUserProjects);
+
 // Subir archivos a un proyecto
 router.post('/:id/files', authenticateToken, upload.single('file'), (req, res) => {
   try {

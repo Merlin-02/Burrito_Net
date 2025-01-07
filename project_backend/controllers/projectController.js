@@ -50,6 +50,18 @@ exports.getProjects = async (req, res) => {
 };
 
 
+// Obtener todos los proyectos de todos los usuarios
+exports.getAllProjects = async (req, res) => {
+  try {
+    // Buscamos todos los proyectos sin ningún filtro en particular.
+    const projects = await Project.find().populate('createdBy', 'username email'); // Popular datos del creador
+    res.json(projects); // Devolvemos todos los proyectos encontrados
+  } catch (error) {
+    res.status(500).json({ error: error.message }); // Manejo de errores en caso de falla
+  }
+};
+
+
 exports.getUserProjects = async (req, res) => {
   try {
     const projects = await Project.find({ createdBy: req.user.id });
