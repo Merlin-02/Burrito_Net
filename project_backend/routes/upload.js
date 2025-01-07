@@ -1,4 +1,3 @@
-// routes/upload.js
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -11,8 +10,8 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/'); // Carpeta donde se guardarán los archivos
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nombre único
-  }
+    cb(null, `${Date.now()}${path.extname(file.originalname)}`); // Nombre único
+  },
 });
 
 const upload = multer({ storage });

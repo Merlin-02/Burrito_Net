@@ -1,183 +1,482 @@
+:root {
+  --background-light: #FCFDF9; /* Fondo claro */
+  --blue-dark: #066585; /* Azul oscuro */
+  --blue-bright: #05B8B1; /* Azul brillante */
+  --yellow: #F7C92C; /* Amarillo */
+  --maroon: #6B133B; /* Guinda oscuro */
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #FCFDF9; /* Fondo del color solicitado */
-  margin: 0 100px;
+  background-color: var(--background-light);
+  margin: 0;
+  padding: 0;
+  color: var(--blue-dark); /* Color principal de texto */
+}
+
+/* ======== Layout General ======== */
+.main-layout {
+  display: flex; /* Usar Flexbox para organizar el layout */
+  height: 100vh; /* Altura total de la ventana */
+  overflow: hidden; /* Evitar desbordamientos */
+}
+
+.sidebar {
+  flex: 0 0 250px; /* Ancho fijo de 250px */
+  background-color: var(--blue-dark); /* Fondo del sidebar */
+  color: var(--background-light); /* Texto blanco */
+  height: 100%; /* Altura completa */
+  padding: 20px;
+  box-sizing: border-box; /* Incluir padding y bordes en el tamaño */
+  border-right: 1px solid var(--blue-bright); /* Borde divisor */
+  position: fixed; /* Fijo en el lado izquierdo */
+  top: 0;
+  left: 0;
+}
+
+.sidebar h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--background-light);
+}
+
+.sidebar ul {
+  list-style: none;
   padding: 0;
 }
 
-.container {
-  width: 80%;
-  margin: auto;
-  overflow: hidden;
+.sidebar ul li {
+  margin-bottom: 15px;
 }
 
-h1 {
-  text-align: center;
-  color: #333;
-  font-size: 3rem; /* Hacer que el título sea más grande */
-  display: inline-block;
-  margin-right: 20px; /* Separar un poco el título del logo */
-}
-
-.logo {
-  height: 50px; /* Ajustar el tamaño del logo */
-  vertical-align: middle;
-}
-
-form {
-  background: #fff;
-  padding: 20px;
+.sidebar ul li a,
+.sidebar ul li button {
+  text-decoration: none;
+  color: var(--background-light); /* Texto blanco */
+  font-size: 18px;
+  cursor: pointer;
+  display: block;
+  padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 20px auto;
-  max-width: 400px;
+  transition: background 0.3s;
 }
 
-input {
+.sidebar ul li button {
+  background: none;
+  border: none;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li button:hover {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+}
+
+.project-image {
+  max-width: 100%; /* La imagen no será más grande que su contenedor */
+  height: auto;    /* Mantiene la proporción de la imagen */
+  display: block;  /* Evita espacios adicionales alrededor de la imagen */
+  margin: 0 auto;  /* Centra la imagen horizontalmente */
+}
+
+.file-section {
+  width: 100%;       /* Asegura que el contenedor ocupe todo el ancho disponible */
+  max-width: 600px;  /* Tamaño máximo opcional para no ocupar todo el espacio */
+  margin: 20px auto; /* Centra el contenedor y da espacio alrededor */
+  text-align: center; /* Centra el contenido dentro del contenedor */
+}
+
+.main-content {
+  margin-left: 250px; /* Deja espacio para el sidebar */
+  flex-grow: 1; /* Ocupa el espacio restante */
+  padding: 20px;
+  overflow-y: auto; /* Scroll si es necesario */
+  background-color: var(--background-light); /* Fondo claro */
+}
+
+/* ======== Botones ======== */
+button {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--blue-dark);
+}
+
+/* ======== Elementos de Proyectos ======== */
+.project-items {
+  display: flex;
+  flex-direction: column; /* Una columna para asegurar un proyecto por fila */
+  gap: 20px;
+}
+
+.project-item {
+  background-color: var(--background-light);
+  border: 1px solid var(--blue-bright);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Asegurar una estructura en columna */
+  gap: 10px;
+}
+
+.project-item:hover {
+  transform: translateY(-5px);
+}
+
+.project-title {
+  font-size: 20px;
+  color: var(--yellow); /* Amarillo */
+  margin: 0;
+}
+
+.project-description {
+  font-size: 16px;
+  color: var(--blue-dark); /* Azul oscuro */
+  margin: 0;
+}
+
+.project-btn {
+  align-self: flex-start;
+  background-color: var(--blue-bright); /* Azul brillante */
+  color: var(--background-light); /* Texto blanco */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.project-btn:hover {
+  background-color: var(--blue-dark); /* Azul oscuro */
+}
+
+/* ======== Formularios ======== */
+form {
+  background: var(--background-light);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--blue-bright);
+}
+
+form .form-group {
+  margin-bottom: 20px;
+}
+
+form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+form .form-group input,
+form .form-group textarea,
+form .form-group button {
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  background: #5cb85c;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-button:hover {
-  background: #4cae4c;
-}
-
-/* Estilos para los botones de navegación en el Dashboard */
-.navigation-buttons {
-  display: flex;
-  justify-content: flex-start; /* Alineamos los botones hacia la izquierda */
-  gap: 10px; /* Reducir el espacio entre los botones */
-  margin-bottom: 20px;
-}
-
-.auth-button {
-  background-color: #0798A3; /* Color de fondo para los botones de Login, Logout y Signup */
-  color: white;
-  font-size: 16px;
-  padding: 12px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.auth-button:hover {
-  background-color: #057A86; /* Color más oscuro cuando el mouse pasa por encima */
-}
-
-.navigation-buttons .upload-project-btn {
-  background: linear-gradient(45deg, #6B133B, #FCFDF9); /* Color de fondo difuminado */
-  color: white;
-  font-size: 16px;
-  padding: 15px 30px;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-
-.navigation-buttons .upload-project-btn:hover {
-  background: linear-gradient(45deg, #6B133B, #FCFDF9);
-  opacity: 0.9; /* Efecto de opacidad al pasar el mouse */
-}
-
-/* Estilos para la lista de proyectos */
-h2 {
-  color: #333;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  background: #fff;
-  padding: 10px;
-  margin-bottom: 10px;
+  border: 1px solid var(--blue-bright);
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-li h3 {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
+form .form-group textarea {
+  resize: vertical;
 }
 
-li p {
-  margin: 5px 0 0;
-  color: #555;
+form .form-group button {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
 }
 
-/* Header styling */
-.header {
-  display: flex;
-  align-items: center; /* Asegura que el logo y el título estén alineados verticalmente */
-  justify-content: center;
-  margin-top: 20px;
+form .form-group button:hover {
+  background-color: var(--blue-dark);
 }
 
-.create-project {
-  width: 80%;
-  margin: auto;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-#tags {
-  width: 80%;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-button {
-  background-color: #0798A3;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-button:hover {
-  background-color: #067F8E;
-}
-
+/* ======== Tags ======== */
 .tags-container {
   display: flex;
+  gap: 8px;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
-.tag {
-  background-color: #6B133B;
-  color: white;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 3px;
+.tag-chip {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  white-space: nowrap;
+  border: 1px solid var(--blue-dark);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.tag-chip:hover {
+  background-color: var(--blue-dark);
+  transform: scale(1.05);
+}
+
+/* ======== Títulos ======== */
+.main-title {
+  font-size: 32px;
+  color: var(--maroon); /* Guinda */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tags-title {
+  font-size: 20px;
+  color: var(--blue-dark); /* Azul oscuro */
+  margin-bottom: 10px;
+}
+
+/* ======== Responsivo ======== */
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+/* Estilos del perfil de usuario */
+.user-profile {
+  background-color: var(--background-light);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+  font-size: 24px;
+  color: var(--yellow); /* Amarillo */
+  margin-bottom: 10px;
+}
+
+.user-email {
+  font-size: 18px;
+  color: var(--blue-dark);
+  margin-bottom: 20px;
+}
+
+.follow-info p {
+  font-size: 16px;
+  color: var(--blue-dark);
+}
+
+.search-form {
   display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--blue-bright);
+  border-radius: 5px;
+}
+
+.search-btn {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: var(--blue-dark);
+}
+
+.search-item {
+  background-color: var(--background-light);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--blue-bright);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.tag button {
-  background: none;
+.search-text {
+  flex-grow: 1;
+  margin-right: 10px;
+  font-size: 16px;
+  color: var(--blue-dark);
+}
+
+.follow-btn,
+.unfollow-btn {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
   border: none;
-  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
   margin-left: 5px;
 }
 
-.tag button:hover {
-  color: red;
+.follow-btn:hover,
+.unfollow-btn:hover {
+  background-color: var(--blue-dark);
 }
+
+/* Loading text */
+.loading-text {
+  color: var(--maroon);
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Título principal del Dashboard */
+.main-title {
+  font-size: 32px;
+  color: var(--maroon); /* Guinda */
+  margin-bottom: 20px;
+}
+
+/* Lista de proyectos recientes */
+.project-list {
+  display: grid;
+  grid-template-columns: 1fr; /* Solo un proyecto por fila */
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-item {
+  background-color: var(--background-light);
+  border: 1px solid var(--blue-bright);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.project-item:hover {
+  transform: translateY(-5px); /* Efecto de levantar al pasar el mouse */
+}
+
+.project-title {
+  font-size: 24px;
+  color: var(--yellow); /* Amarillo */
+  margin-bottom: 10px;
+}
+
+.project-description {
+  font-size: 16px;
+  color: var(--blue-dark);
+  margin-bottom: 10px;
+}
+
+.project-creator {
+  font-size: 14px;
+  color: var(--maroon); /* Guinda */
+  margin-bottom: 15px;
+}
+
+/* Botón Ver Detalles */
+.view-details {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-details:hover {
+  background-color: var(--blue-dark);
+}
+
+/* Imagen del proyecto */
+.project-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Botón Descargar */
+.project-btn {
+  background-color: var(--blue-bright);
+  color: var(--background-light);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.project-btn:hover {
+  background-color: var(--blue-dark);
+}
+
+/* Texto de carga */
+.loading-text {
+  font-size: 18px;
+  color: var(--maroon); /* Guinda */
+  text-align: center;
+}
+/* Imagen del proyecto  DASBOARD*/
+.project-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón Descargar */
+/* Estilo para la sección de archivos */
+.file-section {
+  margin-top: 20px;
+}
+
+/* Botón para descargar archivos */
+.project-btn {
+  background-color: #05B8B1; /* Azul brillante */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.project-btn:hover {
+  background-color: #066585; /* Azul oscuro */
+}
+
+.button-container {
+  margin-top: 10px;
+}
+

@@ -1,3 +1,4 @@
+//followController.JS
 const User = require('../models/User');
 
 // Seguir a un usuario
