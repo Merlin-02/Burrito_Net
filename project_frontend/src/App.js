@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/SignUp';
 import Dashboard from './components/Dashboard';
@@ -14,6 +14,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        {/* Redirige la ruta raíz a Login */}
+        <Route path="/" element={<Navigate to="/login" />} />
+        
+        {/* Otras rutas */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
