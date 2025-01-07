@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware para servir archivos subidos
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 // Middleware de logging
 app.use((req, res, next) => {
@@ -41,23 +41,24 @@ app.use('/api/users', usersRouter);
 app.use('/api/upload', uploadRoutes);
 app.use('/projects', projectRoutes);
 
-// Ruta para obtener contenido de archivos
 app.get('/projects/file-content', (req, res) => {
   const { filePath } = req.query;
   if (!filePath) {
     return res.status(400).json({ error: 'Ruta del archivo no proporcionada.' });
   }
 
-  const absolutePath = path.join(__dirname, filePath);
+  const absolutePath = path.join(__dirname, filePath.replace(/\\/g, '/'));
+  console.log('Ruta absoluta:', absolutePath);
 
   fs.readFile(absolutePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error leyendo el archivo:', err.message);
-      return res.status(500).json({ error: 'Error al leer el archivo.' });
+      return res.status(500).json({ error: 'No se pudo leer el archivo.' });
     }
     res.json({ content: data });
   });
 });
+
 
 // Manejo de errores global
 app.use((err, req, res, next) => {

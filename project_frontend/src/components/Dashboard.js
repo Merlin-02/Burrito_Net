@@ -15,7 +15,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('token');
       const response = await axios.get('http://localhost:5000/projects', {
         headers: {
-          Authorization: `Bearer ${token}`, // Corregido: usar template literal
+          Authorization: `Bearer ${token}`,
         },
       });
       setProjects(response.data); // Actualizar proyectos en el estado
@@ -102,7 +102,9 @@ const Dashboard = () => {
               <li key={project._id} className="project-item">
                 <h3 className="project-title">{project.name}</h3>
                 <p className="project-description">{project.description.substring(0, 100)}...</p>
-                <p className="project-creator">Creado por: {project.createdBy || 'Usuario Desconocido'}</p>
+                <p className="project-creator">
+                  Creado por: {project.createdBy?.username || 'Usuario Desconocido'}
+                </p>
                 {project.fileUrl && (
                   <div className="project-file">
                     {project.fileType?.startsWith('image/') ? (

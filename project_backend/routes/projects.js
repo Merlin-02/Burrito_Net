@@ -3,6 +3,7 @@ const express = require('express');
 const {
   createProject,
   getProjects,
+  getUserProjects,
   getProjectById,
   updateProject,
   deleteProject,
@@ -15,13 +16,17 @@ const upload = require('../middleware/uploadMiddleware'); // Importar Multer
 const router = express.Router();
 
 // Rutas para proyectos
+
+
 router.post('/', authenticateToken, upload.single('file'), createProject);
 
 router.get('/', authenticateToken, getProjects);
-router.get('/:id', authenticateToken, getProjectById);
-router.put('/:id', authenticateToken, updateProject);
-router.delete('/:id', authenticateToken, deleteProject);
+router.get('/:id/project', authenticateToken, getProjectById);
 
+router.put('/:id', authenticateToken, updateProject);
+
+router.delete('/:id', authenticateToken, deleteProject);
+router.get('/own', authenticateToken, getUserProjects);
 // Subir archivos a un proyecto
 router.post('/:id/files', authenticateToken, upload.single('file'), (req, res) => {
   try {

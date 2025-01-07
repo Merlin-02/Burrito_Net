@@ -10,7 +10,7 @@ const ProjectList = () => {
     const fetchProjects = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/projects", {
+        const response = await axios.get("http://localhost:5000/projects/own", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

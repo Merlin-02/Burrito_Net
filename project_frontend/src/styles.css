@@ -72,6 +72,20 @@ body {
   color: var(--background-light);
 }
 
+.project-image {
+  max-width: 100%; /* La imagen no será más grande que su contenedor */
+  height: auto;    /* Mantiene la proporción de la imagen */
+  display: block;  /* Evita espacios adicionales alrededor de la imagen */
+  margin: 0 auto;  /* Centra la imagen horizontalmente */
+}
+
+.file-section {
+  width: 100%;       /* Asegura que el contenedor ocupe todo el ancho disponible */
+  max-width: 600px;  /* Tamaño máximo opcional para no ocupar todo el espacio */
+  margin: 20px auto; /* Centra el contenedor y da espacio alrededor */
+  text-align: center; /* Centra el contenido dentro del contenedor */
+}
+
 .main-content {
   margin-left: 250px; /* Deja espacio para el sidebar */
   flex-grow: 1; /* Ocupa el espacio restante */

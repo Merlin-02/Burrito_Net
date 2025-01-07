@@ -39,9 +39,18 @@ exports.createProject = async (req, res) => {
 
 
 
-
 // Obtener todos los proyectos del usuario
 exports.getProjects = async (req, res) => {
+  try {
+    const projects = await Project.find().populate('createdBy', 'username email'); // Popular datos del creador
+    res.json(projects);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+exports.getUserProjects = async (req, res) => {
   try {
     const projects = await Project.find({ createdBy: req.user.id });
     res.json(projects);
