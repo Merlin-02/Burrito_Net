@@ -7,6 +7,7 @@ const projectSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   filePath: { type: String },
   fileType: { type: String },
+  fileName: { type: String },
 });
 
 module.exports = mongoose.model('Project', projectSchema);

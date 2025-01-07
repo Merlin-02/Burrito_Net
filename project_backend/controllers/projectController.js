@@ -2,7 +2,6 @@
 const Project = require('../models/Project');
 
 // Crear un proyecto
-// Crear un proyecto
 exports.createProject = async (req, res) => {
   console.log("Datos recibidos en el backend (req.body):", req.body);
   console.log("Archivo recibido (req.file):", req.file);
@@ -15,8 +14,9 @@ exports.createProject = async (req, res) => {
       return res.status(400).json({ error: "El nombre y la descripción son obligatorios." });
     }
 
-    // Asegúrate de que req.file esté definido y genera el fileUrl
+    // Asegúrate de que req.file esté definido y genera los valores necesarios
     const fileName = req.file?.filename;
+    const filePath = req.file?.path.replace(/\\/g, "/"); // Normalizar separadores para evitar problemas
     const fileUrl = fileName ? `/uploads/${fileName}` : null;
 
     // Crear el proyecto
@@ -26,6 +26,8 @@ exports.createProject = async (req, res) => {
       tags: tags ? JSON.parse(tags) : [], // Asegurar que los tags sean un array
       createdBy: req.user.id, // ID del usuario autenticado
       fileUrl, // URL del archivo (si existe)
+      filePath, // Ruta completa del archivo
+      fileName, // Nombre del archivo
       fileType: req.file?.mimetype || null, // Tipo de archivo (opcional)
     });
 
@@ -39,6 +41,7 @@ exports.createProject = async (req, res) => {
 
 
 
+
 // Obtener todos los proyectos del usuario
 exports.getProjects = async (req, res) => {
   try {
@@ -46,6 +49,18 @@ exports.getProjects = async (req, res) => {
     res.json(projects);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+
+// Obtener todos los proyectos de todos los usuarios
+exports.getAllProjects = async (req, res) => {
+  try {
+    // Buscamos todos los proyectos sin ningún filtro en particular.
+    const projects = await Project.find().populate('createdBy', 'username email'); // Popular datos del creador
+    res.json(projects); // Devolvemos todos los proyectos encontrados
+  } catch (error) {
+    res.status(500).json({ error: error.message }); // Manejo de errores en caso de falla
   }
 };
 

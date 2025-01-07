@@ -160,6 +160,58 @@ button:hover {
   background-color: var(--blue-dark); /* Azul oscuro */
 }
 
+.code-section {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #2d2d2d; /* Fondo oscuro */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: left; /* Asegura alineación a la izquierda */
+  max-width: 1000px; /* Define un ancho máximo opcional */
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.code-section h3 {
+  color: #ffffff; /* Texto blanco */
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: left; /* Asegura que el título también esté alineado a la izquierda */
+}
+
+.code-block {
+  font-family: "Courier New", Courier, monospace; /* Fuente monoespaciada */
+  font-size: 14px;
+  color: #f8f8f2; /* Color del texto */
+  background-color: #2d2d2d; /* Fondo del bloque */
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto; /* Agregar desplazamiento horizontal si el código es muy largo */
+  white-space: pre-wrap; /* Envolver líneas largas */
+  line-height: 1.5; /* Espaciado entre líneas */
+  text-align: left; /* Asegura alineación a la izquierda */
+  height: 400px; /* Altura específica del cuadro */
+  max-height: 600px; /* Altura máxima (opcional) */
+  width: 100%; /* El ancho será todo el del contenedor */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total */
+}
+
+
+.code-block::-webkit-scrollbar {
+  height: 8px; /* Altura del scroll */
+  background-color: #3e3e3e; /* Fondo del scrollbar */
+  border-radius: 4px;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+  background-color: #5c5c5c; /* Color del scroll */
+  border-radius: 4px;
+}
+
+.code-block::-webkit-scrollbar-thumb:hover {
+  background-color: #737373; /* Color del scroll al pasar el mouse */
+}
+
+
 /* ======== Formularios ======== */
 form {
   background: var(--background-light);
