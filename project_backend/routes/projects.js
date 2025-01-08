@@ -16,8 +16,6 @@ const upload = require('../middleware/uploadMiddleware'); // Importar Multer
 const router = express.Router();
 
 // Rutas para proyectos
-
-
 router.post('/', authenticateToken, upload.single('file'), createProject);
 
 router.get('/', authenticateToken, getProjects);

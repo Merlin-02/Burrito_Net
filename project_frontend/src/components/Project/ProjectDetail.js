@@ -58,7 +58,7 @@ const ProjectDetail = () => {
   }, [id]);
 
   const handleBackToList = () => {
-    navigate("/projectlist"); // Redirigir a la lista de proyectos
+    navigate("/dashboard"); // Redirigir a la lista de proyectos
   };
 
   const handleViewCommits = () => {
