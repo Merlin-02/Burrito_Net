@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const UserProfile = () => {
   const [user, setUser] = useState(null); // Usuario actual
@@ -106,6 +106,13 @@ const UserProfile = () => {
             <div className="follow-info">
               <p><strong>Seguidores:</strong> {user.followers.length}</p>
               <p><strong>Seguidos:</strong> {user.following.length}</p>
+            </div>
+
+            {/* Botón Editar Perfil */}
+            <div className="edit-profile">
+              <Link to="/editprofile">
+              <button className="project-btn view-details">Editar Perfil</button>
+              </Link>
             </div>
 
             {/* Buscador de usuarios */}

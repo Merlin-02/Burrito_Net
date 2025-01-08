@@ -6,6 +6,7 @@ const ProjectDetail = () => {
   const { id } = useParams(); // Obtener el ID del proyecto desde la URL
   const [project, setProject] = useState(null);
   const [fileContent, setFileContent] = useState(null); // Para almacenar el contenido del archivo
+  const [comment, setComment] = useState(""); // Estado para el comentario
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,7 +62,29 @@ const ProjectDetail = () => {
   };
 
   const handleViewCommits = () => {
-    navigate(`/commits?projectId=${id}`); // Redirigir al historial de commits
+    navigate('/historialcommits', { state: { projectId: id } }); // Pasar el ID del proyecto en el estado
+  };
+  
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    try {
+      await axios.post(
+        `http://localhost:5000/projects/${id}/commits`,
+        { message: comment },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("Comentario enviado exitosamente.");
+      setComment(""); // Limpiar el campo de comentario
+    } catch (error) {
+      console.error("Error al enviar el comentario:", error.message);
+      alert("Hubo un error al enviar el comentario.");
+    }
   };
 
   return (
@@ -119,6 +142,23 @@ const ProjectDetail = () => {
                 </a>
               </div>
             )}
+
+            {/* Zona de Comentarios */}
+            <div className="comment-section">
+              <h3>Deja un comentario</h3>
+              <form onSubmit={handleCommentSubmit}>
+                <textarea
+                  placeholder="Escribe tu comentario aquí..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  required
+                  className="comment-input"
+                />
+                <button type="submit" className="comment-submit-btn">
+                  Enviar Comentario
+                </button>
+              </form>
+            </div>
           </div>
         ) : (
           <p className="loading-text">Cargando detalles...</p>

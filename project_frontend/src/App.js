@@ -9,11 +9,13 @@ import ProjectDetail from './components/Project/ProjectDetail';
 import UserProfile from './components/User/UserProfile';
 import ProjectCommits from './components/Project/commits';
 import HistorialCommits from './components/User/HistorialCommits';
+import EditProfile from './components/User/EditProfile';
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Login/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -22,7 +24,8 @@ const App = () => {
         <Route path="/projectdetails/:id" element={<ProjectDetail />} />
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/commits" element={<ProjectCommits />} />
-        <Route path="/Historialcommits" element={<HistorialCommits />} />
+        <Route path="/historialcommits" element={<HistorialCommits />} />
+        <Route path="/editprofile" element={<EditProfile />} />
       </Routes>
     </Router>
   );

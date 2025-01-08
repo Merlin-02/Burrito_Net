@@ -211,6 +211,63 @@ button:hover {
   background-color: #737373; /* Color del scroll al pasar el mouse */
 }
 
+.comment-input {
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  height: 150px; /* Ajusta la altura para que sea más larga */
+  padding: 10px; /* Añade espacio interno para comodidad al escribir */
+  font-size: 16px; /* Tamaño de fuente cómodo */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  resize: vertical; /* Permite al usuario ajustar la altura */
+  outline: none; /* Quita el borde azul al hacer clic */
+}
+
+.comment-input:focus {
+  border-color: #007bff; /* Cambia el borde al color azul al hacer clic */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Efecto de resplandor */
+}
+
+.comment-submit-btn {
+  margin-top: 10px; /* Espacio superior */
+  padding: 10px 20px; /* Espaciado interno */
+  background-color: #007bff; /* Color azul */
+  color: white; /* Texto en blanco */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
+  cursor: pointer; /* Cambia el cursor a "mano" */
+  transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+.comment-submit-btn:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el cursor */
+}
+
+.commit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.commit-card {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.commit-message {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.commit-date {
+  font-size: 14px;
+  color: #666;
+}
+
 
 /* ======== Formularios ======== */
 form {
